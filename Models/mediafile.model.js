@@ -19,10 +19,20 @@ const MediaFile = sequelize.define(
     village_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: "Villages",
+        key: "village_id",
+      },
+      onDelete: "CASCADE",
     },
     house_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: "Houses",
+        key: "house_id",
+      },
+      onDelete: "CASCADE",
     },
   },
   {

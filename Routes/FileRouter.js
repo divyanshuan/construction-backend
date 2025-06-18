@@ -14,8 +14,10 @@ router.post(
   upload.array("files", 10),
   fileController.uploadHouseFile
 );
+
 router.get("/village/:village_id", fileController.getFilesByVillage);
 router.get("/house/:house_id", fileController.getFilesByHouse);
+router.get("/all", fileController.getAllFiles); // You already added this
 router.delete("/:id", fileController.deleteFile);
 
 module.exports = router;

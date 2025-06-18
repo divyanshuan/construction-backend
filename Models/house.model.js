@@ -19,6 +19,11 @@ const House = sequelize.define(
     village_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "Villages",
+        key: "village_id",
+      },
+      onDelete: "CASCADE",
     },
   },
   {

@@ -4,16 +4,49 @@ const MediaFile = require("./mediafile.model");
 
 const associateModels = () => {
   // Village ↔ Houses
-  Village.hasMany(House, { foreignKey: "village_id", as: "Houses" });
-  House.belongsTo(Village, { foreignKey: "village_id", as: "Village" });
+  Village.hasMany(House, {
+    foreignKey: "village_id",
+    as: "Houses",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
 
-  // Village ↔ MediaFiles
-  Village.hasMany(MediaFile, { foreignKey: "village_id", as: "MediaFiles" });
-  MediaFile.belongsTo(Village, { foreignKey: "village_id", as: "Village" });
+  House.belongsTo(Village, {
+    foreignKey: "village_id",
+    as: "Village",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
 
-  // House ↔ MediaFiles
-  House.hasMany(MediaFile, { foreignKey: "house_id", as: "MediaFiles" });
-  MediaFile.belongsTo(House, { foreignKey: "house_id", as: "House" });
+  // Village ↔ MediaFiles (village-level files)
+  Village.hasMany(MediaFile, {
+    foreignKey: "village_id",
+    as: "MediaFiles",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
+
+  MediaFile.belongsTo(Village, {
+    foreignKey: "village_id",
+    as: "Village",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
+
+  // House ↔ MediaFiles (house-level files)
+  House.hasMany(MediaFile, {
+    foreignKey: "house_id",
+    as: "MediaFiles",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
+
+  MediaFile.belongsTo(House, {
+    foreignKey: "house_id",
+    as: "House",
+    onDelete: "CASCADE",
+    constraints: true,
+  });
 };
 
 module.exports = associateModels;
